@@ -19,9 +19,9 @@
             }
         </style>
          <script type="text/javascript">
-             var isRunning;
-             
-             function DigitalClock () {
+            var paused = {};
+
+            function DigitalClock () {
                 this.interval = 0;
             }
  
@@ -33,20 +33,30 @@
                 document.getElementById('clock').innerHTML = hours +":"+ mins +":"+ secs;
             };
 
+            DigitalClock.prototype.pause = function() {
+                document.getElementById("resumebtn").disabled = false;
+                clearInterval(this.interval);
+            };
+
+            DigitalClock.prototype.resume = function() {
+                document.getElementById("resumebtn").disabled = true;
+                clearInterval(this.interval);
+            }
+
             window.onload = function(){ 
                 var clock = new DigitalClock();
                 clock.interval = setInterval(clock.displayTime, 1000);
-                console.log(clock.interval);
+                paused = clock.pause.bind(clock);
 
             }
-            
+
             function pause(){
-                document.getElementById("resumebtn").disabled = false;
-                clearInterval(isRunning);
+                paused(); 
             }
+
             function resume(){
                 document.getElementById("resumebtn").disabled = true;
-                isRunning = setInterval(digitalClock, 1000);
+                window.onload.call();
             }
         </script>
     </head>
