@@ -33,6 +33,15 @@
                 digitalClock();
                 isRunning = setInterval(digitalClock, 1000);
             }
+            
+            function pause(){
+                document.getElementById("resumebtn").disabled = false;
+                clearInterval(isRunning);
+            }
+            function resume(){
+                document.getElementById("resumebtn").disabled = true;
+                isRunning = setInterval(digitalClock, 1000);
+            }
         </script>
     </head>
     <body>
