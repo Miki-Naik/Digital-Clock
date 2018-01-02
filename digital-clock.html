@@ -19,19 +19,25 @@
             }
         </style>
          <script type="text/javascript">
-            var isRunning;
-
-            function digitalClock() {
-                var today = new Date();
-                hours =( today.getHours() < 10 ? "0" : "" ) + today.getHours();
-                mins = ( today.getMinutes() < 10 ? "0" : "" ) + today.getMinutes();
-                secs = ( today.getSeconds() < 10 ? "0" : "" ) + today.getSeconds();
-                document.getElementById('clock').innerHTML = hours +":"+ mins +":"+ secs;
+             var isRunning;
+             
+             function DigitalClock () {
+                this.interval = 0;
             }
+ 
+            DigitalClock.prototype.displayTime = function() {
+                var today = new Date();
+                var hours =( today.getHours() < 10 ? "0" : "" ) + today.getHours();
+                var mins = ( today.getMinutes() < 10 ? "0" : "" ) + today.getMinutes();
+                var secs = ( today.getSeconds() < 10 ? "0" : "" ) + today.getSeconds();
+                document.getElementById('clock').innerHTML = hours +":"+ mins +":"+ secs;
+            };
 
             window.onload = function(){ 
-                digitalClock();
-                isRunning = setInterval(digitalClock, 1000);
+                var clock = new DigitalClock();
+                clock.interval = setInterval(clock.displayTime, 1000);
+                console.log(clock.interval);
+
             }
             
             function pause(){
